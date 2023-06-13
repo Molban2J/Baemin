@@ -31,13 +31,13 @@
             로그인중
         </th:block>
 
-        <!-- 임시
-            <div th:if="${SPRING_SECURITY_CONTEXT.authentication.principal.authorities.contains('ROLE_ADMIN') }" class="admin_page_btn">
+        <!-- 임시-->
+            <div th:if="${SPRING_SECURITY_CONTEXT?.authentication?.principal?.authorities?.contains('ROLE_ADMIN') }" class="admin_page_btn">
                 <div>
                     <a href="/admin/main">사장님 페이지</a>
                 </div>
             </div>
-        -->
+
         <!-- 임시 -->
 
         <div class="menu_tab_box active">
