@@ -1,6 +1,7 @@
 package com.baemin.baemin.mybatis;
 
 import com.baemin.baemin.dto.Join;
+import com.baemin.baemin.dto.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -14,5 +15,8 @@ public interface UserMapper {
     public void join(Join join);
 
     @Select("SELECT COUNT(*) FROM BM_USER WHERE ${valueType} = #{value}")
-    int overlapCheck(Map<String, String> map);
+    public int overlapCheck(Map<String, String> map);
+
+    @Select("SELECT U.ID ,U.USERNAME ,U.PASSWORD ,U.EMAIL ,U.NICKNAME ,U.PHONE ,U.RATING,U.ROLE,P.POINT FROM BM_USER U LEFT JOIN (SELECT USER_ID, SUM(POINT) POINT FROM BM_POINT GROUP BY USER_ID) P ON U.ID = P.USER_ID WHERE U.USERNAME = #{username }")
+    public User login(String username);
 }

@@ -1,5 +1,9 @@
 package com.baemin.baemin.config;
 
+import com.baemin.baemin.login.LoginDetailService;
+import com.baemin.baemin.login.LoginFail;
+import com.baemin.baemin.login.LoginSuccess;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,10 +15,22 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private LoginFail loginFail;
+
+    @Autowired
+    private LoginSuccess loginSuccess;
+
+    @Autowired
+    private LoginDetailService loginDetailService;
+
+
     @Bean
     public BCryptPasswordEncoder encodePwd() {
         return new BCryptPasswordEncoder();
     }
+
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -28,8 +44,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/")
                 .loginProcessingUrl("/login")
+                .successHandler(loginSuccess)
+                .failureHandler(loginFail)
                 .and()
                 .logout()
-                .logoutSuccessUrl("/myPage");
+                .logoutSuccessUrl("/myPage")
+                .and()
+                .rememberMe()
+                .key("rememberKey")
+                .rememberMeCookieName("rememberMeCookieName")
+                .rememberMeParameter("remember-me")
+                .tokenValiditySeconds(60 * 60 * 24 * 7)
+                .userDetailsService(loginDetailService);
     }
 }

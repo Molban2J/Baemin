@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <th:block th:insert="include/link.html"></th:block>
 
+<th:block th:if ="${loginFailMsg != null}">
+    <script type="text/javascript">
+        const msg = "${loginFailMsg}";
+        swal(msg);
+    </script>
+</th:block>
+
 <link rel="stylesheet" href="/css/user/login.css">
 </head>
 <body>
