@@ -9,7 +9,7 @@ function usernameCheck(username) {
 }
 
 function emailCheck(email){
-    const regEmail = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
+    const regEmail = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/;
 
     if(regEmail.test(email)) {
         return true;

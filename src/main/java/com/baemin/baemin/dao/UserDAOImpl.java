@@ -1,6 +1,7 @@
 package com.baemin.baemin.dao;
 
 import com.baemin.baemin.dto.Join;
+import com.baemin.baemin.mybatis.UserMapper;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -13,10 +14,10 @@ import java.util.Map;
 public class UserDAOImpl implements UserDAO{
 
     @Autowired
-    private SqlSession sql;
+    private UserMapper userMapper;
     @Override
     public void join(Join join) {
-        sql.insert("UserMapper.join" , join);
+        userMapper.join(join);
     }
 
     @Override
@@ -24,6 +25,6 @@ public class UserDAOImpl implements UserDAO{
         Map<String, String> map = new HashMap<>();
         map.put("value", value);
         map.put("valueType", valueType);
-        return sql.selectOne("UserMapper.overlapCheck", map);
+        return userMapper.overlapCheck(map);
     }
 }

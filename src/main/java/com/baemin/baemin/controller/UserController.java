@@ -3,6 +3,7 @@ package com.baemin.baemin.controller;
 import com.baemin.baemin.dto.Join;
 import com.baemin.baemin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +23,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private BCryptPasswordEncoder pwdEncoder;
+
     @GetMapping("/myPage")
     public String myPage(){
         return "user/myPage";
@@ -38,33 +42,17 @@ public class UserController {
     }
 
     @PostMapping("/join")
-    public String joinProc(@Valid Join join, BindingResult bindingResult, Model model){
+    public String joinProc(Join join,Model model){
+        String encPwd = pwdEncoder.encode(join.getPassword());
+        join.setPassword(encPwd);
         System.out.println(join);
-        if(bindingResult.hasErrors()){
-            System.out.println("Error");
-
-            List<FieldError> list = bindingResult.getFieldErrors();
-            Map<String, String> errorMsg = new HashMap<>();
-
-            for(int i = 0; i< list.size(); i++){
-                String field = list.get(i).getField();
-                String message = list.get(i).getDefaultMessage();
-
-                System.out.println("필드 = " + field);
-                System.out.println("메세지 = "+ message);
-
-                errorMsg.put(field, message);
-            }
-            model.addAttribute("errorMsg", errorMsg);
-            return "user/join";
-        }
         userService.join(join);
         return "redirect:/login";
     }
 
     @ResponseBody
     @GetMapping("/overlapCheck")
-    public int overlapChec(String value, String valueType){
+    public int overlapCheck(String value, String valueType){
         // value = 중복 체크할 값
         // valueType = username, nickname
         System.out.println(value);

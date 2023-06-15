@@ -17,10 +17,10 @@
 
             <div class="grid_box">
                 <div class="login_box">
-                        <a th:if="${empty SPRING_SECURITY_CONTEXT }" href="/login"><span>로그인을 해주세요</span></a>
-                    <div th:if="${!empty SPRING_SECURITY_CONTEXT }">
+                        <a th:if="${SPRING_SECURITY_CONTEXT == null }" href="/login"><span>로그인을 해주세요</span></a>
+                    <div th:if="${SPRING_SECURITY_CONTEXT != null }">
                         <div th:with="nickname=${#authentication.principal.user.nickname}"></div>
-                        <a href="/user/myInfo"><span class="nickname" data-nickname=${nickname } >${nickname }</span></a>
+                        <a href="/user/myInfo"><span class="nickname" data-nickname="${nickname}">${nickname }</span></a>
                         <button type="button" class="logout">로그아웃</button>
                     </div>
                 </div>

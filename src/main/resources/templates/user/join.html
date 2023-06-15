@@ -10,7 +10,7 @@
         <form action="/join" method="post" onsubmit="return isSubmit.isSubmit();">
             <div class="input_aera">
                 <input type="text" name="username" class="username" maxlength="20"  placeholder="아이디를 입력해 주세요" >
-                <span class="msg_box" th:value="${errorMsg?.username }"></span>
+                <span class="msg_box" th:text="${errorMsg?.username }"></span>
             </div>
 
             <div class="input_aera">
