@@ -4,6 +4,7 @@ import com.baemin.baemin.dto.User;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,6 +17,7 @@ import java.util.List;
 @Setter
 @ToString
 public class LoginService implements UserDetails {
+
     private User user;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

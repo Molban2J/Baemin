@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
-                .loginPage("/")
+                .loginPage("/") // 인증 필요한 페이지 접근시 이동페이지
                 .loginProcessingUrl("/login")
                 .successHandler(loginSuccess)
                 .failureHandler(loginFail)
@@ -55,6 +55,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .rememberMeCookieName("rememberMeCookieName")
                 .rememberMeParameter("remember-me")
                 .tokenValiditySeconds(60 * 60 * 24 * 7)
-                .userDetailsService(loginDetailService);
+                .userDetailsService(loginDetailService)
+        ;
+
     }
+
 }

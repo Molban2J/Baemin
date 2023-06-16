@@ -16,7 +16,9 @@ public class LoginFail implements AuthenticationFailureHandler {
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         if(exception instanceof BadCredentialsException || exception instanceof InternalAuthenticationServiceException){
             request.setAttribute("loginFailMsg", "아이디와 비밀번호를 확인해 주세요");
+            System.out.println("실패 메세지 전송");
         }
-        request.getRequestDispatcher("/resources/templates/user/login.html").forward(request, response);
+        System.out.println("로그인 실패");
+        request.getRequestDispatcher("/user/login").forward(request, response);
     }
 }
