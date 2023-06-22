@@ -1,0 +1,48 @@
+
+<li th:each="storeList : ${storeList}">
+  <!-- <a href="${store_admin }/detail/${storeList.id }"> -->
+
+  <div class="img_box">
+    <a th:href="${store_admin }+'/detail/'+${storeList.id }"><img th:src="${storeList.storeImg }" alt="이미지"></a>
+  </div>
+
+  <div class="info_box">
+    <h2><a th:href="${store_admin}+'/detail/'+${storeList.id}" th:text="${storeList.storeName}"></a></h2>
+
+    <a th:href="${store_admin }+'/detail/'+${storeList.id }">
+      <!--<span>
+          <span th:text="평점 ${storeList.score }"></span>
+
+          <span class="score_box">
+              <th:block th:each="i: ${#numbers.sequence(0, 4)}">
+                <th:block th:if="${#numbers.round(storeList.score) > i}">
+                  <i class="far fas fa-star"></i>
+                </th:block>
+                <th:block th:if="${#numbers.round(storeList.score) <= i}">
+                  <i class="far fa-star"></i>
+                </th:block>
+              </th:block>
+
+          </span>
+      </span>
+
+<span>
+      <span th:text="리뷰 ${storeList.reviewCount }"></span>
+      <span th:text="사장님 댓글 ${storeList.bossCommentCount }"></span>
+  </span> -->
+
+
+        <span th:text="'최소주문금액 '+${#numbers.formatInteger(storeList.minDelevery, 0, 'DEFAULT')}+'원'"></span>
+        <span th:text="'배달팁 '+${#numbers.formatInteger(storeList.deleveryTip, 0, 'DEFAULT')}+'원'"></span>
+
+      <span th:text="'배달시간 '+${storeList.deleveryTime }+'분'"></span>
+    </a>
+  </div>
+
+
+  <div th:if="${!storeList.isOpen}">
+    <div class="is_open">
+      <a th:href="'/store/detail/'+${storeList.id }">지금은 준비중입니다</a>
+    </div>
+  </div>
+</li>

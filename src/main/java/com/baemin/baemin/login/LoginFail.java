@@ -14,11 +14,14 @@ import java.io.IOException;
 public class LoginFail implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+        String loginFailMsg ="";
         if(exception instanceof BadCredentialsException || exception instanceof InternalAuthenticationServiceException){
-            request.setAttribute("loginFailMsg", "아이디와 비밀번호를 확인해 주세요");
+            //request.setAttribute("loginFailMsg", "아이디와 비밀번호를 확인해 주세요");
+            loginFailMsg = "?error=loginFailMsg";
             System.out.println("실패 메세지 전송");
         }
         System.out.println("로그인 실패");
-        request.getRequestDispatcher("/user/login").forward(request, response);
+        //request.getRequestDispatcher("/resources/templates/user/login.html").forward(request, response);
+        response.sendRedirect("/login"+loginFailMsg);
     }
 }

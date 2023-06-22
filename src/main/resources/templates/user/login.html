@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <th:block th:insert="include/link.html"></th:block>
 
-<th:block th:if ="${loginFailMsg != null}">
+<div th:if ="${param.error}">
     <script type="text/javascript">
-        const msg = "${loginFailMsg}";
+        const msg = "아이디와 비밀번호를 확인해 주세요";
         swal(msg);
     </script>
-</th:block>
+</div>
 
 <link rel="stylesheet" href="/css/user/login.css">
 </head>
